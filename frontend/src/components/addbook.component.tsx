@@ -1,0 +1,82 @@
+import * as React from "react";
+import BookService from "../service/book.service";
+import Book from "../models/book";
+import { useNavigate, NavigateFunction } from "react-router-dom";
+import BookForm from "./bookForm";
+
+interface IProps {
+  navigate: NavigateFunction;
+}
+interface IState {
+  book: Book;
+  validated: boolean;
+}
+
+class AddBookComponent extends React.Component<IProps, IState> {
+  public state: IState = {
+    book: {
+      Name: "",
+      Year: undefined,
+      Author: "",
+      Genre: "",
+    },
+    validated: false,
+  };
+  constructor(props: IProps) {
+    super(props);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
+  }
+
+  private handleOnSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+
+    const nextState: IState = {
+      ...this.state,
+      validated: true,
+    };
+    this.setState(nextState);
+    if (!event.currentTarget.checkValidity()) {
+      return;
+    }
+
+    BookService.create(this.state.book).then((rp: any) => {
+      if (rp.Status) {
+        this.props.navigate("/");
+      } else {
+        console.log("Messages: " + rp.Messages);
+        console.log("Exception: " + rp.Exception);
+      }
+    });
+  }
+
+  private handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    const nextState: IState = {
+      ...this.state,
+      book: { ...this.state.book, [name]: value },
+    };
+    this.setState(nextState);
+  };
+
+  public render(): React.ReactNode {
+    return (
+      <>
+        <BookForm
+          book={this.state.book}
+          validated={this.state.validated}
+          handleInputChange={this.handleInputChange}
+          onSubmit={this.handleOnSubmit}
+        />
+      </>
+    );
+  }
+}
+
+function AddBook() {
+  let navigate = useNavigate();
+  return <AddBookComponent navigate={navigate} />;
+}
+
+export default AddBook;

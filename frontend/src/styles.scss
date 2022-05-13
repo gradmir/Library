@@ -1,0 +1,106 @@
+body {
+    color: #666;
+    padding: 10px;
+    min-height: 100vh;
+  }
+  
+  header {
+    text-align: center;
+    margin: 10px 0 10px 0;
+  
+    .links {
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 150%;
+      margin-bottom: 20px;
+  
+      .link:link,
+      .link:visited {
+        padding: 5px 10px;
+        font-weight: 100;
+        margin: 1rem;
+        color: #666;
+        text-decoration: none;
+        text-transform: uppercase;
+  
+        &.active {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  .main-content {
+    width: 80%;
+    margin: auto auto 100px auto;
+  }
+  
+  .form {
+    width: 50%;
+    float: left;
+    margin-bottom: 50px;
+  }
+  
+  .book-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .book {
+    margin: 10px;
+    width: 288px;
+    overflow: hidden;
+  
+    .book-title {
+      font-weight: bold;
+    }
+  
+    .book-details {
+      margin-bottom: 1rem;
+  
+      & > div {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+  
+  .main-form {
+    color: #222222;
+    font-size: 18px;
+    width: 70%;
+    margin: auto;
+  }
+  
+  button {
+    margin-right: 5px;
+  }
+  
+  .submit-btn {
+    margin-top: 1rem;
+  }
+  
+  @media screen and (max-width: 400px) {
+    h1 {
+      font-size: 30px;
+    }
+  
+    header {
+      .links {
+        a {
+          font-size: 1.2rem;
+        }
+  
+        .link:link,
+        .link:visited {
+          margin: unset;
+        }
+      }
+    }
+  
+    .main-form {
+      width: 100%;
+    }
+  }
+  
